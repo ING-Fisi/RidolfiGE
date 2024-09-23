@@ -1,4 +1,4 @@
-# Install script for directory: C:/Espressif/esp-idf-v4.4.6/components/wifi_provisioning
+# Install script for directory: C:/Espressif/esp-idf-v4.4.7/components/wifi_provisioning
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

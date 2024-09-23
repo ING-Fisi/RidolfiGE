@@ -81,7 +81,7 @@ esp_err_t mqtt_app_start( esp_mqtt_client_handle_t *mqtt_client, esp_mqtt_client
 	if ( strcmp(mqtt_ext_cfg->uri, GCPIOT_BROKER_URI) == 0 ) { 	// If google URI detected use GIOTC.
 
 		//******************************************************************* JWT ****************************************************//
-		if ( xgiotc_gen_JWT(jwt, 5000, 3600*24) < 0 ) {
+		if ( xgiotc_gen_JWT(jwt, 5000, 3600) < 0 ) {
 			free(jwt);
 			return ESP_FAIL;
 		}

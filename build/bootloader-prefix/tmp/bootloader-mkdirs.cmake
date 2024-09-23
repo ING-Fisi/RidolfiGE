@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
-  "C:/Espressif/esp-idf-v4.4.6/components/bootloader/subproject"
+  "C:/Espressif/esp-idf-v4.4.7/components/bootloader/subproject"
   "C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader"
   "C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader-prefix"
   "C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader-prefix/tmp"

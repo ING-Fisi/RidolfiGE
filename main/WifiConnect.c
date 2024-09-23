@@ -301,12 +301,12 @@ static esp_netif_t *wifi_start(void)
     ESP_ERROR_CHECK(esp_wifi_set_storage(WIFI_STORAGE_RAM));
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid = CONFIG_EXAMPLE_WIFI_SSID,
-            .password = CONFIG_EXAMPLE_WIFI_PASSWORD,
+            .ssid = "FisitronWifiHub",//"VodafoneFisitronING",//"FisitronWifiHUB", //"Tenda_46DEA0",//CONFIG_EXAMPLE_WIFI_SSID,
+            .password = "FisiHub3105576!",//"Fisitron319086",//"FisiHub3105576!",//CONFIG_EXAMPLE_WIFI_PASSWORD,
             .scan_method = EXAMPLE_WIFI_SCAN_METHOD,
             .sort_method = EXAMPLE_WIFI_CONNECT_AP_SORT_METHOD,
             .threshold.rssi = CONFIG_EXAMPLE_WIFI_SCAN_RSSI_THRESHOLD,
-            .threshold.authmode = EXAMPLE_WIFI_SCAN_AUTH_MODE_THRESHOLD,
+            .threshold.authmode = WIFI_AUTH_WPA_PSK,//EXAMPLE_WIFI_SCAN_AUTH_MODE_THRESHOLD,
         },
     };
     ESP_LOGI(TAG, "Connecting to %s...", wifi_config.sta.ssid);

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Espressif/esp-idf-v4.4.6/components/mdns
+# Install script for directory: C:/Espressif/esp-idf-v4.4.7/components/mdns
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

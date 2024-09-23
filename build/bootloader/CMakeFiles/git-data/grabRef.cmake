@@ -18,7 +18,7 @@ set(HEAD_HASH)
 file(READ "C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader/CMakeFiles/git-data/HEAD" HEAD_CONTENTS LIMIT 1024)
 
 string(STRIP "${HEAD_CONTENTS}" HEAD_CONTENTS)
-set(GIT_DIR "C:/Espressif/esp-idf-v4.4.6/.git")
+set(GIT_DIR "C:/Espressif/esp-idf-v4.4.7/.git")
 # handle git-worktree
 if(EXISTS "${GIT_DIR}/commondir")
 	file(READ "${GIT_DIR}/commondir" GIT_DIR_NEW LIMIT 1024)

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Espressif/esp-idf-v4.4.6/components/esp_serial_slave_link
+# Install script for directory: C:/Espressif/esp-idf-v4.4.7/components/esp_serial_slave_link
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
