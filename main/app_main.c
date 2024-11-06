@@ -57,6 +57,8 @@ extern uint16_t array_modbus[128];
 
 char payload_char[2000];
 char tmp_macstr[20];
+char device_id_string[150];
+char data_topic_string[100];
 
 
 
@@ -80,7 +82,7 @@ esp_err_t mqtt_event_handler( esp_mqtt_event_handle_t event ) {
 		//mqtt_service_state = MQTT_SERV_CONNECTED;
 		//msg_id = esp_mqtt_client_subscribe(client, "/devices/prototype1/events", 1);
 		//ESP_LOGD(TAG, "sent subscribe successful, msg_id=%d", msg_id);
-		esp_mqtt_client_subscribe(client, DATA_TOPIC_SUB, 1);
+		//esp_mqtt_client_subscribe(client, DATA_TOPIC_SUB, 1);
 		set_mqtt_service_state( MQTT_SERV_CONNECTED );
 		break;
 
@@ -169,6 +171,16 @@ void ctrl_tsk(void) {
 
 	mqtt_app_start_main();
 	get_mac_str(tmp_macstr);
+
+
+//	memset(device_id_string,0,sizeof(device_id_string));
+//	memset(data_topic_string,0,sizeof(data_topic_string));
+//
+//	sprintf(device_id_string,GCPIOT_CLIENT_ID,tmp_macstr);
+//	sprintf(data_topic_string,DATA_TOPIC,tmp_macstr);
+//
+//	printf("client id -> %s\n\r",device_id_string);
+//	printf("data topic -> %s\n\r",data_topic_string);
 
 	while (1) {
 

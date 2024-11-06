@@ -19,10 +19,10 @@
 // IOT Core connection parameters
 #define GCPIOT_BROKER_URI	"mqtts://europe-west1-mqtt.clearblade.com:8883"
 #define GCPIOT_PROJECT_ID	"ridolfi-401111"
-#define GCPIOT_CLIENT_ID	"projects/ridolfi-401111/locations/europe-west1/registries/ridolfi-v1/devices/Device-24dcc3b0ce00"
-//#define GCPIOT_LOCATION		"europe-west1"
-#define DATA_TOPIC			"/devices/Device-24dcc3b0ce00/events"
-#define DATA_TOPIC_SUB		"/devices/Device-24dcc3b0ce00/commands/#"
+#define GCPIOT_CLIENT_ID	"projects/ridolfi-401111/locations/europe-west1/registries/ridolfi-v1/devices/Device-25dcc3aeffbc"
+#define DATA_TOPIC			"/devices/Device-25dcc3aeffbc/events"
+//#define DATA_TOPIC_SUB		"/devices/Device-24dcc3b0ce00/commands/#"
+
 /**
  * @brief Google IOT Core initialization structure.
  *

@@ -13,7 +13,7 @@
 #include "mqtt.h"
 #include "sdkconfig.h"
 
-
+extern char device_id_string[150];
 
 /* --------------------- DEFINES ------------------------- *
  * ------------------------------------------------------- */
@@ -93,6 +93,7 @@ esp_err_t mqtt_app_start( esp_mqtt_client_handle_t *mqtt_client, esp_mqtt_client
 			free(jwt);
 			return ESP_FAIL;
 		}
+
 
 		//xgiotc_print_cfg(NULL);
 		mqtt_cfg.uri = GCPIOT_BROKER_URI;
