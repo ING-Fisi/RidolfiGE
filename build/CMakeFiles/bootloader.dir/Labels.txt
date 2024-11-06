@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/CMakeFiles/bootloader
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/CMakeFiles/bootloader.rule
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/CMakeFiles/bootloader-complete.rule
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-C:/Users/Utente/Desktop/ESP32/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+C:/Users/clott/PROGETTI/RidolfiGE/build/CMakeFiles/bootloader
+C:/Users/clott/PROGETTI/RidolfiGE/build/CMakeFiles/bootloader.rule
+C:/Users/clott/PROGETTI/RidolfiGE/build/CMakeFiles/bootloader-complete.rule
+C:/Users/clott/PROGETTI/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+C:/Users/clott/PROGETTI/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/Users/clott/PROGETTI/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/Users/clott/PROGETTI/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/Users/clott/PROGETTI/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/Users/clott/PROGETTI/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/Users/clott/PROGETTI/RidolfiGE/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
