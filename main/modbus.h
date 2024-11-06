@@ -17,7 +17,7 @@
 
 esp_err_t master_init(void);
 void master_operation_func(void *arg);
-void request_modbus_info(void);
+esp_err_t request_modbus_info(void);
 
 
 #endif /* MODBUS_H_ */

@@ -153,7 +153,7 @@ static void* master_get_param_data(const mb_parameter_descriptor_t* param_descri
 	return instance_ptr;
 }
 
-void request_modbus_info(void)
+esp_err_t request_modbus_info(void)
 {
 
 	esp_err_t err = ESP_OK;
@@ -190,6 +190,8 @@ void request_modbus_info(void)
 		}
 
 	}
+
+	return err;
 
 }
 

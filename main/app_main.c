@@ -59,6 +59,10 @@ char payload_char[2000];
 char tmp_macstr[20];
 
 
+//************************* LED ******************************//
+#define GPIO_OUTPUT_IO_0    33
+#define GPIO_OUTPUT_PIN_SEL  (1ULL<<GPIO_OUTPUT_IO_0)
+
 
 
 #if CONFIG_BROKER_CERTIFICATE_OVERRIDDEN == 1
@@ -251,7 +255,7 @@ void mqtt_app_start_main(void)
 
 
 
-
+bool toggle = false;
 
 
 void ctrl_tsk(void) {
@@ -270,255 +274,189 @@ void ctrl_tsk(void) {
 
 	while (1) {
 
-		request_modbus_info();
+		esp_err_t err = request_modbus_info();
 
-		//array
-		if(get_mqtt_service_state()==MQTT_SERV_CONNECTED)
+		if(err == ESP_OK)
 		{
 
+			gpio_set_level(GPIO_OUTPUT_IO_0, 1000);
 
-			//•	5 (WAR0)
-			//•	6 (WAR1)
-			//•	17 (WAHR0)
-			//•	18 (WAHR1)
-			//•	19 (WAHR2)
-			//•	20 (WAHS0)
-			//•	21 (WAHS1)
-			//•	22 (WAHS2)
-			//•	23 (WAHT0)
-			//•	24 (WAHT1)
-			//•	25 (WAHT2)
-			//•	67 (AMP)
-			//•	76 (C_R)
-			//•	77 (C_S)
-			//•	78 (C_A)
-
-			//************** fill payload *****************//
-			sprintf(payload_char,
-					"{"
-					"\"rt\": true,"
-					"\"u\": \"%s\"," //"\"u\": \"testdev\","
-					"\"ts\": %ld,"
-					"\"m\": "
-					"[{"
-
-					"\"m\": \"_1_5\",\"v\": %d"// WAR0
-					"},{"
-
-					"\"m\": \"_1_6\",\"v\": %d"// WAR1
-					"},{"
-
-					"\"m\": \"_1_7\",\"v\": %d"// ERR0 Flag d'Allarme
-					"},{"
-
-					"\"m\": \"_1_8\",\"v\": %d"// ERR1 Flag d'Allarme
-					"},{"
-
-					"\"m\": \"_1_14\",\"v\": %d"// MANUP Manutenzione Programmata
-					"},{"
-
-					"\"m\": \"_1_15\",\"v\": %d"// ORE0 Ore Lavorate
-					"},{"
-
-					"\"m\": \"_1_16\",\"v\": %d"// ORE1 Ore Lavorate, minuti
-					"},{"
-
-					"\"m\": \"_1_17\",\"v\": %d"// WAHR0
-					"},{"
-
-					"\"m\": \"_1_18\",\"v\": %d"// WAHR1
-					"},{"
-
-					"\"m\": \"_1_19\",\"v\": %d"// WAHR2
-					"},{"
-
-					"\"m\": \"_1_20\",\"v\": %d"// WAHS0
-					"},{"
-
-					"\"m\": \"_1_21\",\"v\": %d"// WAHS1
-					"},{"
-
-					"\"m\": \"_1_22\",\"v\": %d"// WAHS2
-					"},{"
-
-					"\"m\": \"_1_23\",\"v\": %d"// WAHT0
-					"},{"
-
-					"\"m\": \"_1_24\",\"v\": %d"// WAHT1
-					"},{"
-
-					"\"m\": \"_1_25\",\"v\": %d"// WAHT2
-					"},{"
-
-					"\"m\": \"_1_61\",\"v\": %d"// BAR Pressione Olio
-					"},{"
-
-					"\"m\": \"_1_62\",\"v\": %d"// GRD Temperatura Acqua
-					"},{"
-
-					"\"m\": \"_1_63\",\"v\": %d"// VBAT Tensione Batteria, decimi di V
-					"},{"
-
-					"\"m\": \"_1_66\",\"v\": %d"// AIN0 Livello Carburante, %
-					"},{"
-
-					"\"m\": \"_1_67\",\"v\": %d"// AMP
-					"},{"
-
-					"\"m\": \"_1_68\",\"v\": %d"// VGE Tensione G.E. Massima, V
-					"},{"
-
-					"\"m\": \"_1_69\",\"v\": %d"// FREQ Frequenza in decimi di Hz
-					"},{"
-
-					"\"m\": \"_1_76\",\"v\": %d"// C_R
-					"},{"
-
-					"\"m\": \"_1_77\",\"v\": %d"// C_S
-					"},{"
-
-					"\"m\": \"_1_78\",\"v\": %d"// C_A
-					"}]"
+			if(get_mqtt_service_state()==MQTT_SERV_CONNECTED)
+			{
 
 
-					"}",
+				//•	5 (WAR0)
+				//•	6 (WAR1)
+				//•	17 (WAHR0)
+				//•	18 (WAHR1)
+				//•	19 (WAHR2)
+				//•	20 (WAHS0)
+				//•	21 (WAHS1)
+				//•	22 (WAHS2)
+				//•	23 (WAHT0)
+				//•	24 (WAHT1)
+				//•	25 (WAHT2)
+				//•	67 (AMP)
+				//•	76 (C_R)
+				//•	77 (C_S)
+				//•	78 (C_A)
 
-					//•	76 (C_R)
-					//•	77 (C_S)
-					//•	78 (C_A)
+				//************** fill payload *****************//
+				sprintf(payload_char,
+						"{"
+						"\"rt\": true,"
+						"\"u\": \"%s\"," //"\"u\": \"testdev\","
+						"\"ts\": %ld,"
+						"\"m\": "
+						"[{"
 
-					tmp_macstr,
-					get_curtimestamp(),//JGuardian_param_istance.tp.tv_sec,
-					array_modbus[5],
-					array_modbus[6],
-					array_modbus[7],
-					array_modbus[8],
-					array_modbus[14],
-					array_modbus[15],
-					array_modbus[16],
-					array_modbus[17],
-					array_modbus[18],
-					array_modbus[19],
-					array_modbus[20],
-					array_modbus[21],
-					array_modbus[22],
-					array_modbus[23],
-					array_modbus[24],
-					array_modbus[25],
-					array_modbus[61],
-					array_modbus[62],
-					array_modbus[63],
-					array_modbus[66],
-					array_modbus[67],
-					array_modbus[68],
-					array_modbus[69],
-					array_modbus[76],
-					array_modbus[77],
-					array_modbus[78]
-			);
+						"\"m\": \"_1_5\",\"v\": %d"// WAR0
+						"},{"
 
-			int ret = esp_mqtt_client_publish(mqttc,DATA_TOPIC,payload_char, strlen(payload_char), 1, 0);
+						"\"m\": \"_1_6\",\"v\": %d"// WAR1
+						"},{"
 
-			ESP_LOGI(TAG, "START PUBLISH %d",ret);
+						"\"m\": \"_1_7\",\"v\": %d"// ERR0 Flag d'Allarme
+						"},{"
+
+						"\"m\": \"_1_8\",\"v\": %d"// ERR1 Flag d'Allarme
+						"},{"
+
+						"\"m\": \"_1_14\",\"v\": %d"// MANUP Manutenzione Programmata
+						"},{"
+
+						"\"m\": \"_1_15\",\"v\": %d"// ORE0 Ore Lavorate
+						"},{"
+
+						"\"m\": \"_1_16\",\"v\": %d"// ORE1 Ore Lavorate, minuti
+						"},{"
+
+						"\"m\": \"_1_17\",\"v\": %d"// WAHR0
+						"},{"
+
+						"\"m\": \"_1_18\",\"v\": %d"// WAHR1
+						"},{"
+
+						"\"m\": \"_1_19\",\"v\": %d"// WAHR2
+						"},{"
+
+						"\"m\": \"_1_20\",\"v\": %d"// WAHS0
+						"},{"
+
+						"\"m\": \"_1_21\",\"v\": %d"// WAHS1
+						"},{"
+
+						"\"m\": \"_1_22\",\"v\": %d"// WAHS2
+						"},{"
+
+						"\"m\": \"_1_23\",\"v\": %d"// WAHT0
+						"},{"
+
+						"\"m\": \"_1_24\",\"v\": %d"// WAHT1
+						"},{"
+
+						"\"m\": \"_1_25\",\"v\": %d"// WAHT2
+						"},{"
+
+						"\"m\": \"_1_61\",\"v\": %d"// BAR Pressione Olio
+						"},{"
+
+						"\"m\": \"_1_62\",\"v\": %d"// GRD Temperatura Acqua
+						"},{"
+
+						"\"m\": \"_1_63\",\"v\": %d"// VBAT Tensione Batteria, decimi di V
+						"},{"
+
+						"\"m\": \"_1_66\",\"v\": %d"// AIN0 Livello Carburante, %
+						"},{"
+
+						"\"m\": \"_1_67\",\"v\": %d"// AMP
+						"},{"
+
+						"\"m\": \"_1_68\",\"v\": %d"// VGE Tensione G.E. Massima, V
+						"},{"
+
+						"\"m\": \"_1_69\",\"v\": %d"// FREQ Frequenza in decimi di Hz
+						"},{"
+
+						"\"m\": \"_1_76\",\"v\": %d"// C_R
+						"},{"
+
+						"\"m\": \"_1_77\",\"v\": %d"// C_S
+						"},{"
+
+						"\"m\": \"_1_78\",\"v\": %d"// C_A
+						"}]"
+
+
+						"}",
+
+						//•	76 (C_R)
+						//•	77 (C_S)
+						//•	78 (C_A)
+
+						tmp_macstr,
+						get_curtimestamp(),//JGuardian_param_istance.tp.tv_sec,
+						array_modbus[5],
+						array_modbus[6],
+						array_modbus[7],
+						array_modbus[8],
+						array_modbus[14],
+						array_modbus[15],
+						array_modbus[16],
+						array_modbus[17],
+						array_modbus[18],
+						array_modbus[19],
+						array_modbus[20],
+						array_modbus[21],
+						array_modbus[22],
+						array_modbus[23],
+						array_modbus[24],
+						array_modbus[25],
+						array_modbus[61],
+						array_modbus[62],
+						array_modbus[63],
+						array_modbus[66],
+						array_modbus[67],
+						array_modbus[68],
+						array_modbus[69],
+						array_modbus[76],
+						array_modbus[77],
+						array_modbus[78]
+				);
+
+				int ret = esp_mqtt_client_publish(mqttc,DATA_TOPIC,payload_char, strlen(payload_char), 1, 0);
+
+				ESP_LOGI(TAG, "START PUBLISH %d",ret);
+
+				vTaskDelay(60 * 1000/portTICK_PERIOD_MS);
+			}
+		}
+		else
+		{
+
+			if(toggle == true)
+			{
+				toggle = false;
+				gpio_set_level(GPIO_OUTPUT_IO_0, 0);
+
+			}
+			else
+			{
+				toggle = true;
+				gpio_set_level(GPIO_OUTPUT_IO_0, 1000);
+			}
+
 		}
 
-		vTaskDelay(60 * 1000/portTICK_PERIOD_MS);
+		vTaskDelay(1 * 1000/portTICK_PERIOD_MS);
+
 	} // task main cycle: end
 
 	vTaskDelete(NULL);
 }
 
-//static void mqtt_app_start_main(void)
-//{
-//
-//	mqttcfg.uri = GCPIOT_BROKER_URI;
-//	mqttcfg.event_handle = mqtt_event_handler;
-//	mqttcfg.task_stack = 5*(1024);
-//
-//	//ESP_ERROR_CHECK( mqtt_app_start( &mqttc, &mqttcfg ) );
-//	mqtt_app_start( &mqttc, &mqttcfg );
-//	ESP_ERROR_CHECK(master_init());
-//	get_mac_str(tmp_macstr);
-//
-//	while (1) {
-//
-//		request_modbus_info();
-//
-//		//array
-//		if(get_mqtt_service_state()==MQTT_SERV_CONNECTED)
-//		{
-//
-//			//************** fill payload *****************//
-//			sprintf(payload_char,
-//					"{"
-//					"\"rt\": true,"
-//					"\"u\": \"%s\"," //"\"u\": \"testdev\","
-//					"\"ts\": %ld,"
-//					"\"m\": "
-//					"[{"
-//
-//					"\"m\": \"_1_7\",\"v\": %d"// ERR0 Flag d'Allarme
-//					"},{"
-//
-//					"\"m\": \"_1_8\",\"v\": %d"// ERR1 Flag d'Allarme
-//					"},{"
-//
-//					"\"m\": \"_1_14\",\"v\": %d"// MANUP Manutenzione Programmata
-//					"},{"
-//
-//					"\"m\": \"_1_15\",\"v\": %d"// ORE0 Ore Lavorate
-//					"},{"
-//
-//					"\"m\": \"_1_16\",\"v\": %d"// ORE1 Ore Lavorate, minuti
-//					"},{"
-//
-//					"\"m\": \"_1_61\",\"v\": %d"// BAR Pressione Olio
-//					"},{"
-//
-//					"\"m\": \"_1_62\",\"v\": %d"// GRD Temperatura Acqua
-//					"},{"
-//
-//					"\"m\": \"_1_63\",\"v\": %d"// VBAT Tensione Batteria, decimi di V
-//					"},{"
-//
-//					"\"m\": \"_1_66\",\"v\": %d"// AIN0 Livello Carburante, %
-//					"},{"
-//
-//					"\"m\": \"_1_68\",\"v\": %d"// VGE Tensione G.E. Massima, V
-//					"},{"
-//
-//					"\"m\": \"_1_69\",\"v\": %d"// FREQ Frequenza in decimi di Hz
-//
-//					"}]"
-//
-//
-//					"}",
-//
-//
-//					tmp_macstr,
-//					get_curtimestamp(),//JGuardian_param_istance.tp.tv_sec,
-//					array_modbus[7],
-//					array_modbus[8],
-//					array_modbus[14],
-//					array_modbus[15],
-//					array_modbus[16],
-//					array_modbus[61],
-//					array_modbus[62],
-//					array_modbus[63],
-//					array_modbus[66],
-//					array_modbus[68],
-//					array_modbus[69]
-//			);
-//
-//			int ret = esp_mqtt_client_publish(mqttc,DATA_TOPIC,payload_char, strlen(payload_char), 1, 0);
-//
-//			ESP_LOGI(TAG, "START PUBLISH %d",ret);
-//		}
-//
-//	} // task main cycle: end
-//
-//
-//}
+
 
 void app_main(void)
 {
@@ -538,6 +476,26 @@ void app_main(void)
 	ESP_ERROR_CHECK(esp_netif_init());
 	ESP_ERROR_CHECK(esp_event_loop_create_default());
 
+
+	//zero-initialize the config structure.
+	gpio_config_t io_conf = {};
+	//disable interrupt
+	io_conf.intr_type = GPIO_INTR_DISABLE;
+	//set as output mode
+	io_conf.mode = GPIO_MODE_OUTPUT;
+	//bit mask of the pins that you want to set,e.g.GPIO18/19
+	io_conf.pin_bit_mask = GPIO_OUTPUT_PIN_SEL;
+	//disable pull-down mode
+	io_conf.pull_down_en = 0;
+	//disable pull-up mode
+	io_conf.pull_up_en = 0;
+	//configure GPIO with the given settings
+	gpio_config(&io_conf);
+
+
+
+	gpio_set_level(GPIO_OUTPUT_IO_0, 0);
+
 	/* This helper function configures Wi-Fi or Ethernet, as selected in menuconfig.
 	 * Read "Establishing Wi-Fi or Ethernet Connection" section in
 	 * examples/protocols/README.md for more information about this function.
@@ -555,10 +513,10 @@ void app_main(void)
 		}
 	}
 
+
+	gpio_set_level(GPIO_OUTPUT_IO_0, 1000);
+
 	//*************************************************************************//
-
-
-	//xTaskCreatePinnedToCore((TaskFunction_t)modbus_tsk, "modbus_tsk", 1024*5, NULL, 5, NULL, 1/*tskNO_AFFINITY*/);
 
 	xTaskCreatePinnedToCore((TaskFunction_t)ctrl_tsk, "ctrl_tsk", 1024*5, NULL, 4, NULL, 1/*tskNO_AFFINITY*/);
 }

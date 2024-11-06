@@ -1,7 +1,7 @@
 {
     "version":            "1",
     "project_name":       "mqtt_ssl",
-    "project_version":    "d006af8-dirty",
+    "project_version":    "6e42852-dirty",
     "project_path":       "C:/Users/Utente/Desktop/ESP32/RidolfiGE",
     "idf_path":           "C:/Espressif/esp-idf-v4.4.7",
     "build_dir":          "C:/Users/Utente/Desktop/ESP32/RidolfiGE/build",
